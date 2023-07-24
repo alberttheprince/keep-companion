@@ -10,7 +10,9 @@ Dependencies:
 - Ox Lib, Inv, Target
 - Patience
 
-If you want the k9 I have attached the files, they are downsized from 4k from this: https://www.lcpdfr.com/downloads/gta5mods/character/19996-german-shepherd-malinois-k9-dog/
+If you want the police k9 I have attached the files, they are downsized from 4k from this: https://www.lcpdfr.com/downloads/gta5mods/character/19996-german-shepherd-malinois-k9-dog/
+
+You need to make/stream add-on peds. 
 
 Use this for the pet store: https://www.gta5-mods.com/maps/mlo-pet-shop
 
