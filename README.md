@@ -1,5 +1,5 @@
 # keep-companion (Partial Ox conversion)
-# DO NOT EXPECT ME TO FIX ANYTHING. I WON'T. YOU ARE ON YOUR OWN UNLESS YOU DO A PR WITH FULL FIX/OVERHAUL.
+# DO NOT EXPECT ME TO HELP YOU OR FIX ANY ISSUES. I WON'T. YOU ARE ON YOUR OWN UNLESS SOMEONE DOES A PR WITH FULL FIX/OVERHAUL.
 
 - qbcore pet script
 - Partially Ox Compatible (for Ox Lib, inv, target)
@@ -9,6 +9,8 @@ Dependencies:
 - QBCore
 - Ox Lib, Inv, Target
 - Patience
+
+If you want the k9 I have attached the files, they are downsized from 4k from this: https://www.lcpdfr.com/downloads/gta5mods/character/19996-german-shepherd-malinois-k9-dog/
 
 Use this for the pet store: https://www.gta5-mods.com/maps/mlo-pet-shop
 
