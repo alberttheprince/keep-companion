@@ -16,6 +16,8 @@ Use this for the pet store: https://www.gta5-mods.com/maps/mlo-pet-shop
 
 The illegal/poacher store is on cayo sitting on a chair, using https://github.com/TayMcKenzieNZ/CayoTwoIslands
 
+It's not necessary, but this is how I set it up for my community. Change it if you want.
+
 # Known Issues:
 
 - Food/Water not always working
