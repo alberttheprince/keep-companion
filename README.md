@@ -1,12 +1,31 @@
-# keep-companion
+# keep-companion (Partial Ox conversion)
 
 - qbcore pet script
+- Partially Ox Compatible (for Ox Lib, inv, target)
+- Still needs qbcore (I'm not sure if this can work with only ox, I don't know don't ask)
+
+#Known Issues:
+
+- Food/Water not always working
+- some items related to pets not working
+- Leveling system not working
+- Sometimes pets die/don't revive properly
+
+I've "fixed" these issues in my own (duct taped) ways:
+- Pet levels are set to allow them to have full abilities on spawn
+- Pets generally will revive when respawned, sometimes the items work, sometimes it doesn't
+- Don't use items that change pet metadata generally (name change etc)
+
+# DO NOT EXPECT ME TO FIX ANYTHING. I WON'T. YOU ARE ON YOUR OWN UNLESS YOU DO A PR WITH FULL FIX/OVERHAUL.
+
+The most important thing is pets are **FUNCTIONAL** with Ox. This is purely experimental/working for me, if you want to feel free to use this and modify it yourself to fix other issues.
+
 
 ## Features
 
-- XP and leveling system
+- XP and levelling system
 - Food system
-- thirst sytem
+- thirst system
 - Health system (heal and revive)
 - Auto naming (At first usage) & Renaming
 - pet variation
