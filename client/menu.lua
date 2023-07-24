@@ -12,6 +12,7 @@ local function updatePlayerJob()
     repeat
         Wait(10)
     until QBCore.Functions.GetPlayerData().job ~= nil
+    PlayerData =  QBCore.Functions.GetPlayerData()
     PlayerJob = QBCore.Functions.GetPlayerData().job
 end
 
@@ -53,7 +54,7 @@ local menu = {
                 return
             end
 
-            if activePed.itemData.info.level <= min_lvl_to_hunt then
+            if activePed.itemData.metadata.level <= min_lvl_to_hunt then
                 local msg = Lang:t('menu.action_menu.error.not_meet_min_requirement_to_hunt')
                 msg = string.format(msg, min_lvl_to_hunt)
                 QBCore.Functions.Notify(msg, 'error', 5000)
@@ -74,7 +75,7 @@ local menu = {
                 return false
             end
 
-            if activePed.itemData.info.level <= min_lvl_to_hunt then
+            if activePed.itemData.metadata.level <= min_lvl_to_hunt then
                 local msg = Lang:t('menu.action_menu.error.not_meet_min_requirement_to_hunt')
                 msg = string.format(msg, min_lvl_to_hunt)
                 QBCore.Functions.Notify(msg, 'error', 5000)
@@ -275,7 +276,7 @@ local menu2 = {
 
 local function replaceString(s)
     local x
-    x = s:gsub("PETNAME", ActivePed.read().itemData.info.name)
+    x = s:gsub("PETNAME", ActivePed.read().itemData.metadata.name)
     return x
 end
 
@@ -317,7 +318,7 @@ function get_correct_icon(model)
 end
 
 AddEventHandler('keep-companion:client:main_menu', function()
-    local name = ActivePed.read().itemData.info.name
+    local name = ActivePed.read().itemData.metadata.name
     local model = ActivePed.read().model
     local icon = get_correct_icon(model)
     local header = string.format(Lang:t('menu.main_menu.header'), name)
@@ -355,7 +356,7 @@ AddEventHandler('keep-companion:client:main_menu', function()
 end)
 
 AddEventHandler('keep-companion:client:action_menu', function()
-    local name = ActivePed.read().itemData.info.name
+    local name = ActivePed.read().itemData.metadata.name
     local header = string.format(Lang:t('menu.action_menu.header'), name)
     local sub_header = Lang:t('menu.action_menu.sub_header')
     local model = ActivePed.read().model
@@ -422,7 +423,7 @@ AddEventHandler('keep-companion:client:action_menu', function()
 end)
 
 AddEventHandler('keep-companion:client:tricks_menu', function()
-    local name = ActivePed.read().itemData.info.name
+    local name = ActivePed.read().itemData.metadata.name
     local header = string.format(Lang:t('menu.tricks.header'), name)
     local sub_header = Lang:t('menu.tricks.sub_header')
     local model = ActivePed.read().model
@@ -474,7 +475,7 @@ AddEventHandler('keep-companion:client:tricks_menu', function()
 end)
 
 AddEventHandler('keep-companion:client:switchControl_menu', function()
-    local name = ActivePed.read().itemData.info.name
+    local name = ActivePed.read().itemData.metadata.name
     local header = string.format(Lang:t('menu.switchControl_menu.header'), name)
     local sub_header = name
 
@@ -574,14 +575,14 @@ RegisterNetEvent('keep-companion:client:start_grooming_process', function()
     TriggerServerEvent('keep-companion:server:grooming_process', activePed.itemData)
 end)
 
-RegisterNetEvent('keep-companion:client:initialization_process', function(item, pet_information)
+RegisterNetEvent('keep-companion:client:initialization_process', function(item, pet_metadatarmation)
     if type(item) ~= "table" then
         QBCore.Functions.Notify(Lang:t('error.failed_to_start_procces'), 'error', 5000)
         return
     end
-    if pet_information.type == 'init' then
+    if pet_metadatarmation.type == 'init' then
         TriggerEvent('keep-companion:client:openMenu_customization', {
-            item = item, pet_information = pet_information
+            item = item, pet_metadatarmation = pet_metadatarmation
         })
         return
     end
@@ -589,7 +590,7 @@ RegisterNetEvent('keep-companion:client:initialization_process', function(item, 
 
     if not hasitem then QBCore.Functions.Notify('you need grooming kit', 'error', 5000) return end
     TriggerEvent('keep-companion:client:openMenu_customization', {
-        item = item, pet_information = pet_information
+        item = item, pet_metadatarmation = pet_metadatarmation
     })
 end)
 
@@ -637,7 +638,7 @@ local function rename(data)
             return
         end
 
-        data.item.info.name = inputData.name
+        data.item.metadata.name = inputData.name
         TriggerEvent('keep-companion:client:openMenu_customization_rename', data)
     end
 end
@@ -648,14 +649,14 @@ end)
 
 AddEventHandler('keep-companion:client:openMenu_customization_select_variation', function(data)
     if data.selected ~= nil then
-        data.item.info.variation = data.selected
+        data.item.metadata.variation = data.selected
     end
     openMenu_customization_select_variation(data)
 end)
 
 local function change_variation(data)
     local item = data.item
-    local pet_information = data.pet_information
+    local pet_metadatarmation = data.pet_metadatarmation
 
     local openMenu = {
         {
@@ -665,7 +666,7 @@ local function change_variation(data)
                 event = "keep-companion:client:openMenu_customization_select_variation",
                 args = {
                     item = item,
-                    pet_information = pet_information
+                    pet_metadatarmation = pet_metadatarmation
                 }
             }
         },
@@ -677,7 +678,7 @@ local function change_variation(data)
         },
     }
 
-    for key, value in pairs(pet_information.pet_variation_list) do
+    for key, value in pairs(pet_metadatarmation.pet_variation_list) do
         openMenu[#openMenu + 1] = {
             header = Lang:t('menu.variation_menu.selection_menu.btn_variation_items') .. value,
             txt = Lang:t('menu.variation_menu.selection_menu.btn_desc'),
@@ -687,7 +688,7 @@ local function change_variation(data)
                 args = {
                     selected = value,
                     item = item,
-                    pet_information = pet_information
+                    pet_metadatarmation = pet_metadatarmation
                 }
             }
         }
@@ -703,8 +704,8 @@ end)
 -- customization menu
 function openMenu_customization(data)
     -- header
-    local c_name = data.item.info.name
-    local c_variation = data.item.info.variation
+    local c_name = data.item.metadata.name
+    local c_variation = data.item.metadata.variation
 
     local openMenu = {
         {
@@ -717,12 +718,12 @@ function openMenu_customization(data)
             header = Lang:t('menu.customization_menu.btn_rename'),
             txt = Lang:t('menu.customization_menu.btn_txt_btn_rename') .. c_name,
             icon = 'fa-regular fa-keyboard',
-            disabled = data.pet_information.disable.rename,
+            disabled = data.pet_metadatarmation.disable.rename,
             params = {
                 event = "keep-companion:client:openMenu_customization_rename",
                 args = {
                     item = data.item,
-                    pet_information = data.pet_information
+                    pet_metadatarmation = data.pet_metadatarmation
                 },
             }
         },
@@ -734,7 +735,7 @@ function openMenu_customization(data)
                 event = "keep-companion:client:openMenu_customization_select_variation",
                 args = {
                     item = data.item,
-                    pet_information = data.pet_information
+                    pet_metadatarmation = data.pet_metadatarmation
                 },
             }
         },
@@ -745,7 +746,7 @@ function openMenu_customization(data)
                 event = "keep-companion:client:openMenu_customization:confirm",
                 args = {
                     item = data.item,
-                    pet_information = data.pet_information
+                    pet_metadatarmation = data.pet_metadatarmation
                 }
             }
         },
@@ -764,8 +765,8 @@ end
 
 function openMenu_customization_rename(data)
     local item = data.item
-    local pet_information = data.pet_information
-    local c_name = item.info.name
+    local pet_metadatarmation = data.pet_metadatarmation
+    local c_name = item.metadata.name
     -- header
     local openMenu = {
         {
@@ -775,7 +776,7 @@ function openMenu_customization_rename(data)
                 event = "keep-companion:client:openMenu_customization",
                 args = {
                     item = item,
-                    pet_information = pet_information
+                    pet_metadatarmation = pet_metadatarmation
                 },
             }
         },
@@ -793,7 +794,7 @@ function openMenu_customization_rename(data)
                 event = "keep-companion:client:openMenu_customization_rename:rename",
                 args = {
                     item = item,
-                    pet_information = pet_information
+                    pet_metadatarmation = pet_metadatarmation
                 },
             }
         },
@@ -805,7 +806,7 @@ end
 function openMenu_customization_select_variation(data)
     -- header
     local item = data.item
-    local pet_information = data.pet_information
+    local pet_metadatarmation = data.pet_metadatarmation
 
     local openMenu = {
         {
@@ -815,13 +816,13 @@ function openMenu_customization_select_variation(data)
                 event = "keep-companion:client:openMenu_customization",
                 args = {
                     item = item,
-                    pet_information = pet_information
+                    pet_metadatarmation = pet_metadatarmation
                 }
             }
         },
         {
             header = Lang:t('menu.variation_menu.header'),
-            txt = item.info.variation,
+            txt = item.metadata.variation,
             icon = 'fa-solid fa-palette',
             isMenuHeader = true,
             disabled = true
@@ -834,7 +835,7 @@ function openMenu_customization_select_variation(data)
                 event = "keep-companion:client:openMenu_customization_variation:variation_menu",
                 args = {
                     item = item,
-                    pet_information = pet_information
+                    pet_metadatarmation = pet_metadatarmation
                 }
             }
         },
@@ -844,5 +845,5 @@ function openMenu_customization_select_variation(data)
 end
 
 AddEventHandler('keep-companion:client:openMenu_customization:confirm', function(data)
-    TriggerServerEvent('keep-companion:server:compelete_initialization_process', data.item, data.pet_information.type)
+    TriggerServerEvent('keep-companion:server:compelete_initialization_process', data.item, data.pet_metadatarmation.type)
 end)

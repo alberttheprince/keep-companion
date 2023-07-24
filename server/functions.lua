@@ -1,6 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 Update = {}
-
+local ox_inventory = exports.ox_inventory
 --- get random pet name
 ---@param type 'species'
 ---@param gender integer
@@ -29,11 +29,17 @@ function NameGenerator(type, gender)
     return names[type][gender][math.random(1, size)]
 end
 
-local function initInfoHelper(Player, slot, data)
-    if Player.PlayerData.items[slot] then
-        Player.PlayerData.items[slot].info = data
+
+
+
+local function initmetadataHelper(Player, slot, data)
+    src = Player.PlayerData.source
+    if ox_inventory:GetSlot(src, slot) then
+        --Player.PlayerData.items[slot].metadata = data
+        ox_inventory:SetMetadata(src, slot, data)
     end
-    Player.Functions.SetInventory(Player.PlayerData.items, true)
+    --Player.Functions.SetInventory(Player.PlayerData.items, true)
+    
 end
 
 --- inital pet data after player bought pet
@@ -42,43 +48,43 @@ end
 function initItem(source, item)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
-    local pet_information = find_pet_model_by_item_name(item.name)
+    local pet_metadatarmation = find_pet_model_by_item_name(item.name)
     local random = math.random(1, 2)
     local gender = { true, false }
     local maxHealth = 200
-    item.info = {}
+    item.metadata = {}
 
-    item.info.hash = tostring(QBCore.Shared.RandomInt(2) ..
+    item.metadata.hash = tostring(QBCore.Shared.RandomInt(2) ..
         QBCore.Shared.RandomStr(3) .. QBCore.Shared.RandomInt(1) ..
         QBCore.Shared.RandomStr(2) .. QBCore.Shared.RandomInt(3) .. QBCore.Shared.RandomStr(4))
-    item.info.name = NameGenerator('dog', random)
-    item.info.gender = gender[random]
-    item.info.age = 0
+    item.metadata.name = NameGenerator('dog', random)
+    item.metadata.gender = gender[random]
+    item.metadata.age = 0
 
-    item.info.food = 100
-    item.info.thirst = 0
+    item.metadata.food = 100
+    item.metadata.thirst = 5
 
-    item.info.owner = Player.PlayerData.charinfo
-    item.info.level = 0
-    item.info.XP = 0
-    item.info.health = pet_information.maxHealth or maxHealth
+    item.metadata.owner = Player.PlayerData.charinfo
+    item.metadata.level = 5
+    item.metadata.XP = 0
+    item.metadata.health = pet_metadatarmation.maxHealth or maxHealth
 
     -- inital variation
-    item.info.variation = PetVariation:getRandomPedVariationsName(pet_information.model, true)
+    item.metadata.variation = PetVariation:getRandomPedVariationsName(pet_metadatarmation.model, true)
 
-    initInfoHelper(Player, item.slot, item.info)
+    initmetadataHelper(Player, item.slot, item.metadata)
 
     -- do extras step if we want to cutomize pets
     if Config.Settings.let_players_cutomize_their_pet_after_purchase then
-        local information = {
-            pet_variation_list = PetVariation:getPedVariationsNameList(pet_information.model),
-            pet_information = pet_information,
+        local metadatarmation = {
+            pet_variation_list = PetVariation:getPedVariationsNameList(pet_metadatarmation.model),
+            pet_metadatarmation = pet_metadatarmation,
             disable = {
                 rename = false
             },
             type = 'init'
         }
-        TriggerClientEvent('keep-companion:client:initialization_process', src, item, information)
+        TriggerClientEvent('keep-companion:client:initialization_process', src, item, metadatarmation)
     end
 end
 
@@ -98,44 +104,46 @@ RegisterNetEvent('keep-companion:server:compelete_initialization_process', funct
     TriggerEvent('keep-companion:server:keep-companion:server:compelete_initialization_process_last_step', source, item,
         Player, process_type)
     if process_type == 'init' then return end
-    Player.Functions.RemoveItem(Config.core_items.groomingkit.item_name, 1)
+    --Player.Functions.RemoveItem(Config.core_items.groomingkit.item_name, 1)
+    ox_inventory:RemoveItem(src, Config.core_items.groomingkit.item_name, 1)
 end)
 
 RegisterNetEvent('keep-companion:server:keep-companion:server:compelete_initialization_process_last_step',
     function(src, item, Player, process_type)
-        local pet_information = find_pet_model_by_item_name(item.name)
-        if not pet_information then return end
-        local items = Player.Functions.GetItemsByName(item.name)
+        local pet_metadatarmation = find_pet_model_by_item_name(item.name)
+        if not pet_metadatarmation then return end
+        --local items = Player.Functions.GetItemsByName(item.name)
+        local items = ox_inventory:GetInventoryItems(src)
         if not items then return end
 
         if process_type == Config.core_items.groomingkit.item_name then
-            local petData = Pet:findbyhash(src, item.info.hash)
-            if Player.PlayerData.charinfo.phone ~= petData.info.owner.phone then
+            local petData = Pet:findbyhash(src, item.metadata.hash)
+            if Player.PlayerData.charinfo.phone ~= petData.metadata.owner.phone then
                 TriggerClientEvent('QBCore:Notify', src, Lang:t('error.not_owner_of_pet'), 'error', 2500)
                 return
             end
             -- force data that we don't want to get by client side
-            item.info.age = petData.info.age
-            item.info.food = petData.info.food
-            item.info.thirst = petData.info.thirst
+            item.metadata.age = petData.metadata.age
+            item.metadata.food = petData.metadata.food
+            item.metadata.thirst = petData.metadata.thirst
             -- check owner
-            item.info.owner = Player.PlayerData.charinfo
-            item.info.level = petData.info.level
-            item.info.XP = petData.info.XP
-            item.info.health = petData.info.health
+            item.metadata.owner = Player.PlayerData.charinfo
+            item.metadata.level = petData.metadata.level
+            item.metadata.XP = petData.metadata.XP
+            item.metadata.health = petData.metadata.health
         else
             -- force data that we don't want to get by client side
-            item.info.age = 0
-            item.info.food = 100
-            item.info.thirst = 0
-            item.info.owner = Player.PlayerData.charinfo
-            item.info.level = 0
-            item.info.XP = 0
-            item.info.health = pet_information.maxHealth
+            item.metadata.age = 0
+            item.metadata.food = 100
+            item.metadata.thirst = 0
+            item.metadata.owner = Player.PlayerData.charinfo
+            item.metadata.level = 5
+            item.metadata.XP = 0
+            item.metadata.health = pet_metadatarmation.maxHealth
         end
         local sever_item = nil
         for key, value in pairs(items) do
-            if value.info.hash == item.info.hash then
+            if value.metadata.hash == item.metadata.hash then
                 sever_item = value
                 break
             end
@@ -143,7 +151,7 @@ RegisterNetEvent('keep-companion:server:keep-companion:server:compelete_initiali
         if not sever_item then return end
 
 
-        initInfoHelper(Player, sever_item.slot, item.info)
+        initmetadataHelper(Player, sever_item.slot, item.metadata)
         if process_type == Config.core_items.groomingkit.item_name then
             TriggerClientEvent('QBCore:Notify', src, Lang:t('success.successful_grooming'), 'success', 2500)
             Pet:despawnPet(src, item, true) -- despawn dead pet
@@ -216,36 +224,36 @@ local function current_level_max_xp(level)
 end
 
 function Update:xp(source, current_pet_data)
-    local level = convert_xp_to_level(math.floor(current_pet_data.info.XP))
-    local pet_name = current_pet_data.info.name
+    local level = convert_xp_to_level(math.floor(current_pet_data.metadata.XP))
+    local pet_name = current_pet_data.metadata.name
 
     if level > Config.Balance.maximumLevel then
         -- pet reached maximumLevel
         return
     end
 
-    if current_pet_data.info.XP == 0 then
-        current_pet_data.info.XP = 75
+    if current_pet_data.metadata.XP == 0 then
+        current_pet_data.metadata.XP = 75
     end
 
-    current_pet_data.info.XP = current_pet_data.info.XP + calculate_next_xp_value(level)
+    current_pet_data.metadata.XP = current_pet_data.metadata.XP + calculate_next_xp_value(level)
     -- increase level when pet reached max exp of current level
-    if current_pet_data.info.XP > current_level_max_xp(level) then
-        current_pet_data.info.level = level + 1
-        local msg = string.format(Lang:t('info.level_up'), pet_name, current_pet_data.info.level)
+    if current_pet_data.metadata.XP > current_level_max_xp(level) then
+        current_pet_data.metadata.level = level + 1
+        local msg = string.format(Lang:t('metadata.level_up'), pet_name, current_pet_data.metadata.level)
         TriggerClientEvent('QBCore:Notify', source, msg)
     end
 end
 
 function Update:health(source, data, current_pet_data)
-    local pet_name = current_pet_data.info.name
+    local pet_name = current_pet_data.metadata.name
     local net_pet = NetworkGetEntityFromNetworkId(data.netId)
     if net_pet == 0 then
         return
     end
 
     local c_health = GetEntityHealth(net_pet)
-    if current_pet_data.info.health == c_health then
+    if current_pet_data.metadata.health == c_health then
         return
     end
 
@@ -254,28 +262,28 @@ function Update:health(source, data, current_pet_data)
         TriggerClientEvent('QBCore:Notify', source, msg, 'error')
         c_health = 0
     end
-    current_pet_data.info.health = c_health
-    Pet:save_all_info(source, current_pet_data.info.hash) -- saving health should be outside loop to prevent some expolits
+    current_pet_data.metadata.health = c_health
+    Pet:save_all_metadata(source, current_pet_data.metadata.hash) -- saving health should be outside loop to prevent some expolits
 end
 
 function Update:food(petData, process_type)
     if petData == nil or process_type == nil then return end
-    if petData.info.food == 0 then
-        if petData.info.health == 0 or petData.info.health <= 100 then
+    if petData.metadata.food == 0 then
+        if petData.metadata.health == 0 or petData.metadata.health <= 100 then
             -- force kill pet
-            petData.info.health = 0 -- rewrite it just in case value changed for some reason
+            petData.metadata.health = 0 -- rewrite it just in case value changed for some reason
             return
         end
-        petData.info.health = petData.info.health - 0.2
+        petData.metadata.health = petData.metadata.health - 0.2
         return
     end
 
-    if petData.info.food > 0 then
-        petData.info.food = petData.info.food - 1
+    if petData.metadata.food > 0 then
+        petData.metadata.food = petData.metadata.food - 1
 
         -- make sure food value not negative
-        if petData.info.food < 0 then
-            petData.info.food = 0
+        if petData.metadata.food < 0 then
+            petData.metadata.food = 0
         end
         return
     end
@@ -284,25 +292,25 @@ end
 local thirst_value_increase_per_tick = Config.core_items.waterbottle.settings.thirst_value_increase_per_tick
 function Update:thirst(petData, process_type)
     if petData == nil or process_type == nil then return end
-    if petData.info.thirst == nil then
-        petData.info.thirst = 0.0
+    if petData.metadata.thirst == nil then
+        petData.metadata.thirst = 0.0
     end
-    if petData.info.thirst >= 100.0 then
-        if petData.info.health == 0 or petData.info.health <= 100 then
-            petData.info.health = 0
-            petData.info.thirst = 100
+    if petData.metadata.thirst >= 100.0 then
+        if petData.metadata.health == 0 or petData.metadata.health <= 100 then
+            petData.metadata.health = 0
+            petData.metadata.thirst = 100
             return
         end
-        petData.info.health = petData.info.health - 0.5
+        petData.metadata.health = petData.metadata.health - 0.5
         return
     end
 
-    if petData.info.thirst <= 100 then
-        petData.info.thirst = petData.info.thirst + thirst_value_increase_per_tick
+    if petData.metadata.thirst <= 100 then
+        petData.metadata.thirst = petData.metadata.thirst + thirst_value_increase_per_tick
 
         -- make sure thirst value not negative
-        if petData.info.thirst < 0 then
-            petData.info.thirst = 0
+        if petData.metadata.thirst < 0 then
+            petData.metadata.thirst = 0
         end
         return
     end
@@ -332,7 +340,7 @@ QBCore.Functions.CreateCallback('keep-companion:server:collar_change_owenership'
     local hash = data.hash
     local current_pet_data = Pet:findbyhash(source, hash)
 
-    if type(current_pet_data.info.owner) ~= "table" or next(current_pet_data.info.owner) == nil then
+    if type(current_pet_data.metadata.owner) ~= "table" or next(current_pet_data.metadata.owner) == nil then
         cb({
             state = false,
             msg = Lang:t('error.failed_to_transfer_ownership_missing_current_owner')
@@ -345,9 +353,9 @@ QBCore.Functions.CreateCallback('keep-companion:server:collar_change_owenership'
         return
     end
 
-    current_pet_data.info.owner = player_new_owner.PlayerData.charinfo
-    Pet:save_all_info(source, hash)
-    Pet:despawnPet(source, { info = {
+    current_pet_data.metadata.owner = player_new_owner.PlayerData.charinfo
+    Pet:save_all_metadata(source, hash)
+    Pet:despawnPet(source, { metadata = {
         hash = hash
     } }, true)
     cb({

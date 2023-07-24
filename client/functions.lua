@@ -221,8 +221,8 @@ function attackLogic(alreadyHunting)
                 local petCoord = GetEntityCoords(pet)
                 local distance = GetDistanceBetweenCoords(pedCoord, petCoord)
 
-                DrawMarker(2, pedCoord.x, pedCoord.y, pedCoord.z + 2, 0.0, 0.0, 0.0, 0.0, 180.0, 0.0, 1.0, 1.0,
-                    1.0, 255, 128, 0, 50, false, true, 2, nil, nil, false)
+                -- DrawMarker(2, pedCoord.x, pedCoord.y, pedCoord.z + 2, 0.0, 0.0, 0.0, 0.0, 180.0, 0.0, 1.0, 1.0,
+                    -- 1.0, 255, 128, 0, 50, false, true, 2, nil, nil, false)
 
                 if indicator ~= false and IsPedDeadOrDying(entity) ~= false then
                     alreadyHunting.state = false

@@ -343,6 +343,7 @@ local correctionList = {
     ['A_C_Retriever'] = animationList.rottweiler,
     ['A_C_Westy'] = animationList.small,
     ['A_C_Pug'] = animationList.small,
+    ['a_c_k9'] = animationList.rottweiler,
     ['A_C_Poodle'] = animationList.small,
     ['A_C_Panther'] = animationList.cougar,
     ['A_C_MtLion'] = animationList.cougar,

@@ -231,6 +231,28 @@ PetVariation = {
             textureId = 0
         },
     },
+    ['a_c_k9'] = {
+        ['GoldBlack'] = {
+            componentId = 0,
+            drawableId = 0,
+            textureId = 0
+        },
+        ['WhiteBrown'] = {
+            componentId = 0,
+            drawableId = 0,
+            textureId = 1
+        },
+        ['BlackBrown'] = {
+            componentId = 0,
+            drawableId = 0,
+            textureId = 2
+        },
+        ['Black'] = {
+            componentId = 0,
+            drawableId = 0,
+            textureId = 3
+        },
+    },
 }
 
 --- set color/variation of peds

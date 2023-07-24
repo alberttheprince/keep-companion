@@ -1,7 +1,7 @@
 Config = Config or {}
 
 -- server and client
-Config.MaxActivePetsPetPlayer = 2
+Config.MaxActivePetsPetPlayer = 1
 Config.DataUpdateInterval = 10
 
 Config.Settings = {
@@ -109,13 +109,13 @@ Config.pets = {
     [12] = {
         name = 'keepcompanionrabbit',
         model = 'A_C_Rabbit_01',
-        maxHealth = 350,
+        maxHealth = 125,
         distinct = 'no rabbit'
     },
     [13] = {
         name = 'keepcompanioncoyote',
         model = 'A_C_Coyote',
-        maxHealth = 350,
+        maxHealth = 170,
         distinct = 'no cat'
     },
     [14] = {
@@ -123,6 +123,12 @@ Config.pets = {
         model = 'A_C_Rat',
         maxHealth = 150,
         distinct = 'no cat'
+    },
+    [15] = {
+        name = 'keepcompanionk9unit',
+        model = 'a_c_k9',
+        maxHealth = 200,
+        distinct = 'yes dog'
     },
 }
 
@@ -191,7 +197,6 @@ local illegal_items = {
 Config.k9 = {
     illegal_items = illegal_items,
     models = {
-        'A_C_Rottweiler',
-        'A_C_shepherd'
+        'a_c_k9',
     }
 }
