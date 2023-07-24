@@ -199,6 +199,8 @@ https://swkeep.tebex.io/
 
 # Add to Ox_inventory Shops
 
+Please add the LSPD K9 somewhere like your police locker or another shop that only LSPD has access to.
+
 
 ```lua
 PetShop = {
@@ -214,11 +216,8 @@ PetShop = {
             { name = 'petwaterbottleportable',  price = 500, },
             { name = 'petgroomingkit',          price = 75000, },
             { name = 'keepcompanionhusky',      price = 75000, count = 5, },
-            { name = 'keepcompanionshibainu',   price = 75000, count = 5, },
             { name = 'keepcompanionpoodle',     price = 45000, count = 5, },
             { name = 'keepcompanionrottweiler', price = 75000, count = 5, },
-            { name = 'keepcompanionpitbull',    price = 75000, count = 5, },
-            { name = 'keepcompaniongreyhound',  price = 65000, count = 20, },
             { name = 'keepcompanionwesty',      price = 30000, count = 5, },
             { name = 'keepcompanioncat',        price = 25000, count = 10, },
             { name = 'keepcompanionpug',        price = 50000, count = 5, },
@@ -247,7 +246,6 @@ PetShop = {
             { name = 'keepcompanionmtlion',  price = 75000, count = 5, currency = 'black_money', },
             { name = 'keepcompanionmtlion2', price = 75000, count = 5, currency = 'black_money', },
             { name = 'keepcompanioncoyote',  price = 75000, count = 5, currency = 'black_money', },
-            { name = 'keepcompanionbengal',  price = 200000, count = 5, currency = 'black_money', },
         },
         locations = {
 
