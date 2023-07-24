@@ -35,7 +35,7 @@ https://github.com/swkeep
 https://swkeep.tebex.io/
 
 
-#Ox_inventory info:
+# Ox_inventory info:
 
 ```lua
     -- ================ Keep-companion ================
