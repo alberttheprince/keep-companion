@@ -46,7 +46,7 @@ https://swkeep.tebex.io/
         weight = 5000,
         stack = false,
         close = true,
-        description = "Also the nickname every calls you behind your back."
+        description = "Also the nickname everyone calls you behind your back."
     },
     ['keepcompanionpoodle'] = {
         label = 'Poodle',
