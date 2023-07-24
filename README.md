@@ -1,4 +1,5 @@
 # keep-companion (Partial Ox conversion)
+# DO NOT EXPECT ME TO FIX ANYTHING. I WON'T. YOU ARE ON YOUR OWN UNLESS YOU DO A PR WITH FULL FIX/OVERHAUL.
 
 - qbcore pet script
 - Partially Ox Compatible (for Ox Lib, inv, target)
@@ -25,7 +26,6 @@ I've "fixed" these issues in my own (duct-taped) ways:
 - Pets generally will revive when respawned. Sometimes the items work, some times it doesn't. 
 - Don't use items that change pet metadata generally (name change etc)
 
-# DO NOT EXPECT ME TO FIX ANYTHING. I WON'T. YOU ARE ON YOUR OWN UNLESS YOU DO A PR WITH FULL FIX/OVERHAUL.
 
 The most important thing is pets are **FUNCTIONAL** with Ox. This is purely experimental/working for me. If you want to, feel free to use this and modify it yourself to fix other issues.
 
