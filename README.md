@@ -4,6 +4,15 @@
 - Partially Ox Compatible (for Ox Lib, inv, target)
 - Still needs qbcore (I'm not sure if this can work with only ox, I don't know don't ask)
 
+Dependencies:
+- QBCore
+- Ox Lib, Inv, Target
+- Patience
+
+Use this for the pet store: https://www.gta5-mods.com/maps/mlo-pet-shop
+
+The illegal/poacher store is on cayo sitting on a chair, using https://github.com/TayMcKenzieNZ/CayoTwoIslands
+
 #Known Issues:
 
 - Food/Water not always working
@@ -11,19 +20,244 @@
 - Leveling system not working
 - Sometimes pets die/don't revive properly
 
-I've "fixed" these issues in my own (duct taped) ways:
+I've "fixed" these issues in my own (duct-taped) ways:
 - Pet levels are set to allow them to have full abilities on spawn
-- Pets generally will revive when respawned, sometimes the items work, sometimes it doesn't
+- Pets generally will revive when respawned. Sometimes the items work, some times it doesn't. 
 - Don't use items that change pet metadata generally (name change etc)
 
 # DO NOT EXPECT ME TO FIX ANYTHING. I WON'T. YOU ARE ON YOUR OWN UNLESS YOU DO A PR WITH FULL FIX/OVERHAUL.
 
-The most important thing is pets are **FUNCTIONAL** with Ox. This is purely experimental/working for me, if you want to feel free to use this and modify it yourself to fix other issues.
+The most important thing is pets are **FUNCTIONAL** with Ox. This is purely experimental/working for me. If you want to, feel free to use this and modify it yourself to fix other issues.
 
 **Please support SWKeep if you use this**. This is probably the best/most user friendly pet script on FiveM. And it's free.
 
 https://github.com/swkeep
 https://swkeep.tebex.io/
+
+
+#Ox_inventory info:
+
+```lua
+    -- ================ Keep-companion ================
+    ['keepcompanionhusky'] = {
+        label = 'Husky',
+        weight = 5000,
+        stack = false,
+        close = true,
+        description = "Also the nickname every calls you behind your back."
+    },
+    ['keepcompanionpoodle'] = {
+        label = 'Poodle',
+        weight = 5000,
+        stack = false,
+        close = true,
+        description = "This dog's haircut is more expensive than your car."
+    },
+    ['keepcompanionrottweiler'] = {
+        label = 'Rottweiler',
+        weight = 5000,
+        stack = false,
+        close = true,
+        description = "A butcher's best friend."
+    },
+    ['keepcompanionwesty'] = {
+        label = 'Westie',
+        weight = 5000,
+        stack = false,
+        close = true,
+        description = "A great breed for hunting rats, and wearing cute sweaters."
+    },
+    ['keepcompanioncat'] = {
+        label = 'Cat',
+        weight = 5000,
+        stack = false,
+        close = true,
+        description = "What's new pussycat?"
+    },
+    ['keepcompanionpug'] = {
+        label = 'Pug',
+        weight = 5000,
+        stack = false,
+        close = true,
+        description = "The snorting haunts you in your sleep."
+    },
+    ['keepcompanionretriever'] = {
+        label = 'Retriever',
+        weight = 5000,
+        stack = false,
+        close = true,
+        description = "America's favorite dog."
+    },
+    ['keepcompanionshepherd'] = {
+        label = 'Border Collie',
+        weight = 5000,
+        stack = false,
+        close = true,
+        description = "Useful to heard your flock of sheep."
+    },
+    ['keepcompanionrabbit'] = {
+        label = 'Rabbit',
+        weight = 5000,
+        stack = false,
+        close = true,
+        description = "Boing boing boing boing."
+    },
+    ['keepcompanionhen'] = {
+        label = 'Hen',
+        weight = 5000,
+        stack = false,
+        close = true,
+        description = "A best friend AND lunch. Two for one!"
+    },
+    ['keepcompanionrat'] = {
+        label = 'Rat',
+        weight = 5000,
+        stack = false,
+        close = true,
+        description = "Snitches get stiches, but rats get scritches."
+    },
+    ['keepcompanionpitbull'] = {
+        label = 'Pitbull',
+        weight = 5000,
+        stack = false,
+        close = true,
+        description = "Mr. Woofwide."
+    },
+    ['keepcompaniongreyhound'] = {
+        label = 'Greyhound',
+        weight = 5000,
+        stack = false,
+        close = true,
+        description = "The perfect dog for the gambling addict in you."
+    },
+    ['keepcompanionshibainu'] = {
+        label = 'Shiba Inu',
+        weight = 5000,
+        stack = false,
+        close = true,
+        description = "All barks do not constitute financial advice."
+    },
+    ['keepcompanionk9unit'] = {
+        label = 'K9 Unit Malinois',
+        weight = 5000,
+        stack = false,
+        close = true,
+        description = "LSPD exclusive K9."
+    },
+
+    ---
+  --- pet items ----
+    ['petfood'] = {
+        label = 'Pet Food',
+        weight = 500,
+        stack = true,
+        close = true,
+        description = "Nom nom for your pom pom."
+    },
+    ['collarpet'] = {
+        label = 'Pet Collar',
+        weight = 500,
+        stack = false,
+        close = true,
+        description = "Rename your pet."
+    },
+    ['firstaidforpet'] = {
+        label = 'Pet First-aid Kit',
+        weight = 500,
+        stack = true,
+        close = true,
+        description = "Bring your pet back from the dead again and again."
+    },
+    ['petnametag'] = {
+        label = 'Pet Name Tag',
+        weight = 500,
+        stack = true,
+        close = true,
+        description = "rename your pet."
+    },
+    ['petwaterbottleportable'] = {
+        label = 'Pet Water Bottle',
+        weight = 500,
+        stack = false,
+        close = true,
+        description = "Water for your pet. Stop trying to drink this."
+    },
+    ['petgroomingkit'] = {
+        label = 'Pet Grooming Kit',
+        weight = 500,
+        stack = false,
+        close = true,
+        description = "Now your pet can pass a wave check."
+    },
+```
+
+# step 3: Add to Ox_inventory Shops
+
+
+```lua
+PetShop = {
+        blip = {
+            id = 463, colour = 31, scale = 1.1
+        },
+        name = 'Pet Shop',
+        inventory = {
+            { name = 'petfood',                 price = 500, },
+            { name = 'collarpet',               price = 2000, },
+            { name = 'firstaidforpet',          price = 2000, },
+            { name = 'petnametag',              price = 2000, },
+            { name = 'petwaterbottleportable',  price = 500, },
+            { name = 'petgroomingkit',          price = 75000, },
+            { name = 'keepcompanionhusky',      price = 75000, count = 5, },
+            { name = 'keepcompanionshibainu',   price = 75000, count = 5, },
+            { name = 'keepcompanionpoodle',     price = 45000, count = 5, },
+            { name = 'keepcompanionrottweiler', price = 75000, count = 5, },
+            { name = 'keepcompanionpitbull',    price = 75000, count = 5, },
+            { name = 'keepcompaniongreyhound',  price = 65000, count = 20, },
+            { name = 'keepcompanionwesty',      price = 30000, count = 5, },
+            { name = 'keepcompanioncat',        price = 25000, count = 10, },
+            { name = 'keepcompanionpug',        price = 50000, count = 5, },
+            { name = 'keepcompanionretriever',  price = 50000, count = 5, },
+            { name = 'keepcompanionshepherd',   price = 50000, count = 5, },
+            { name = 'keepcompanionhen',        price = 25000, count = 10, },
+            { name = 'keepcompanionrat',        price = 25000, count = 10, },
+            { name = 'keepcompanionrabbit',     price = 25000, count = 20, },
+        },
+        locations = {
+
+        },
+        targets = {
+            {
+                ped = `cs_guadalope`,
+                scenario = 'WORLD_HUMAN_STAND_IMPATIENT',
+                loc = vector3(563.64, 2753.1, 41.88),
+                heading = 183.65,
+                distance = 3.0,
+            },
+        }
+    },
+    Poacher = {
+        name = 'Poacher',
+        inventory = {
+            { name = 'keepcompanionmtlion',  price = 75000, count = 5, currency = 'black_money', },
+            { name = 'keepcompanionmtlion2', price = 75000, count = 5, currency = 'black_money', },
+            { name = 'keepcompanioncoyote',  price = 75000, count = 5, currency = 'black_money', },
+            { name = 'keepcompanionbengal',  price = 200000, count = 5, currency = 'black_money', },
+        },
+        locations = {
+
+        },
+        targets = {
+            {
+                ped = `csb_cletus`,
+                scenario = 'PROP_HUMAN_SEAT_BENCH',
+                loc = vector3(4803.68, -4601.88, 17.31),
+                heading = 178.26,
+                distance = 3.0,
+            },
+        }
+    },
+```
+
 
 #Keep Companion Original Info:
 
