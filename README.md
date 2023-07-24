@@ -16,7 +16,7 @@ Use this for the pet store: https://www.gta5-mods.com/maps/mlo-pet-shop
 
 The illegal/poacher store is on cayo sitting on a chair, using https://github.com/TayMcKenzieNZ/CayoTwoIslands
 
-#Known Issues:
+# Known Issues:
 
 - Food/Water not always working
 - some items related to pets not working
@@ -193,7 +193,7 @@ https://swkeep.tebex.io/
     },
 ```
 
-# step 3: Add to Ox_inventory Shops
+# Add to Ox_inventory Shops
 
 
 ```lua
@@ -261,7 +261,7 @@ PetShop = {
 ```
 
 
-# Keep Companion Original Info:
+# Keep Companion Original Read Me (you may need to do some stuff here, use your critical thinking skills to figure out what):
 
 
 ## Features
