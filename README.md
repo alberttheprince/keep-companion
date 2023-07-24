@@ -20,6 +20,13 @@ I've "fixed" these issues in my own (duct taped) ways:
 
 The most important thing is pets are **FUNCTIONAL** with Ox. This is purely experimental/working for me, if you want to feel free to use this and modify it yourself to fix other issues.
 
+**Please support SWKeep if you use this**. This is probably the best/most user friendly pet script on FiveM. And it's free.
+
+https://github.com/swkeep
+https://swkeep.tebex.io/
+
+#Keep Companion Original Info:
+
 
 ## Features
 
