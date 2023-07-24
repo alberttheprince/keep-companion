@@ -122,27 +122,6 @@ https://swkeep.tebex.io/
         close = true,
         description = "Snitches get stiches, but rats get scritches."
     },
-    ['keepcompanionpitbull'] = {
-        label = 'Pitbull',
-        weight = 5000,
-        stack = false,
-        close = true,
-        description = "Mr. Woofwide."
-    },
-    ['keepcompaniongreyhound'] = {
-        label = 'Greyhound',
-        weight = 5000,
-        stack = false,
-        close = true,
-        description = "The perfect dog for the gambling addict in you."
-    },
-    ['keepcompanionshibainu'] = {
-        label = 'Shiba Inu',
-        weight = 5000,
-        stack = false,
-        close = true,
-        description = "All barks do not constitute financial advice."
-    },
     ['keepcompanionk9unit'] = {
         label = 'K9 Unit Malinois',
         weight = 5000,
