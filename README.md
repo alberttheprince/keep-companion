@@ -15,6 +15,7 @@ If you want the police k9 I have attached the files; they are downsized from 4k 
 You need to make/stream add-on peds. 
 
 Use this for a pet store near Weazel News: https://www.gta5-mods.com/maps/mlo-pet-shop
+
 Use this for a pet store in the Harmony area of Sandy Shores: https://forum.cfx.re/t/release-sandy-pet-shop-mlo/2172530 
 
 The illegal/poacher store is on cayo sitting on a chair, using https://github.com/TayMcKenzieNZ/CayoTwoIslands
